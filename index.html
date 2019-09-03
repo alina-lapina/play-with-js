@@ -11,12 +11,24 @@
     <button onclick=sessionStorage.clear() >Clear storage</button>
     <form action="javascript:add(country.value)">
         <input type="text" name="country" id="country" placeholder="Country">
-        <input type="submit" value="Add"/>
+        <input type="submit" value="Add"/><br>
+        <input type="search" name="search" id="search" placeholder="search..."
+            oninput="handleSearch" >
     </form>
     <ul id="countryList">
     </ul>
 </section>
 <script>
+    document.getElementById("search").oninput = (e) => {
+        console.log("handle", e.target.value);
+        document.getElementById("countryList").childNodes
+            .forEach(node => {
+                node.innerHTML.startsWith(e.target.value)
+                    ? node.style.display = 'block'
+                    :   node.style.display = 'none'
+            })
+    };
+
     const populate = () => {
         const counties = ["Norway", "Denmark", "Sweden"];
         counties.forEach(country => add(country));
