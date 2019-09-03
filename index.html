@@ -6,18 +6,6 @@
     <title>Interactive list</title>
 </head>
 <body>
-<script>
-    function add(element) {
-        if (!element) {
-            alert("Please, enter a country name.");
-        } else {
-            document.getElementById("countryList")
-                .appendChild(document.createElement("LI"))
-                .appendChild(document.createTextNode(element));
-            document.getElementById("country").value = '';
-        }
-    }
-</script>
 <section>
     <form action="javascript:add(country.value)">
         <input type="text" name="country" id="country" placeholder="Country">
@@ -29,5 +17,41 @@
         <li>Sweden</li>
     </ul>
 </section>
+<script>
+
+    const button = (text, callback) => {
+        const deleteButton = document.createElement("button");
+        deleteButton.innerHTML = "x";
+        deleteButton.addEventListener("click", callback);
+        return deleteButton;
+    };
+
+    // Create an observer to add remove buttons
+    new MutationObserver((mutationsList) => {
+        for (let mutation of mutationsList) {
+            if (mutation.addedNodes.length > 0) {
+                mutation.addedNodes[0].appendChild(
+                    button("x", function () {
+                        this.parentElement.remove()
+                    }));
+            }
+        }
+    }).observe(document.getElementById("countryList"),
+        {childList: true}
+    );
+
+    // observer.disconnect();
+
+    function add(element) {
+        if (!element) {
+            alert("Please, enter a country name.");
+        } else {
+            document.getElementById("countryList")
+                .appendChild(document.createElement("LI"))
+                .appendChild(document.createTextNode(element));
+            document.getElementById("country").value = '';
+        }
+    }
+</script>
 </body>
 </html>
