@@ -7,13 +7,13 @@
 </head>
 <body>
 <section>
-    <button onclick=populate() >Populate</button>
-    <button onclick=sessionStorage.clear() >Clear storage</button>
+    <button onclick=populate()>Populate</button>
+    <button onclick=sessionStorage.clear()>Clear storage</button>
     <form action="javascript:add(country.value)">
         <input type="text" name="country" id="country" placeholder="Country">
         <input type="submit" value="Add"/><br>
         <input type="search" name="search" id="search" placeholder="search..."
-            oninput="handleSearch" >
+               oninput="handleSearch">
     </form>
     <ul id="countryList">
     </ul>
@@ -25,7 +25,7 @@
             .forEach(node => {
                 node.innerHTML.toLowerCase().startsWith(e.target.value.toLowerCase())
                     ? node.style.display = 'block'
-                    :   node.style.display = 'none'
+                    : node.style.display = 'none'
             })
     };
 
@@ -48,11 +48,11 @@
         window.setInterval(() => {
             console.log("tick");
             li.innerHTML = `${text} - ${p++}`;
+            li.appendChild(button("x", function () {
+                //this.parentElement.remove()
+                store.delete(text);
+            }));
         }, 1000);
-        li.appendChild(button("x", function () {
-            //this.parentElement.remove()
-            store.delete(text);
-        }));
         return li;
     };
 
@@ -69,15 +69,16 @@
         console.log("update");
         document.getElementById(nodeId).innerHTML = '';
         Object.keys(sessionStorage).map(item => {
-            document.getElementById(nodeId).appendChild(listItem(item)) });
+            document.getElementById(nodeId).appendChild(listItem(item))
+        });
     }
 
     const store = {
         add: (elem) => {
-                console.log("add to storage", elem);
-                sessionStorage[elem] = "country";
-                update();
-            },
+            console.log("add to storage", elem);
+            sessionStorage[elem] = "country";
+            update();
+        },
         delete: (elem) => {
             console.log("remove from storage", elem);
             sessionStorage.removeItem(elem);
