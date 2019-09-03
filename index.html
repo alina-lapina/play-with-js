@@ -20,35 +20,26 @@
 <script>
 
     const button = (text, callback) => {
-        const deleteButton = document.createElement("button");
-        deleteButton.innerHTML = "x";
-        deleteButton.addEventListener("click", callback);
-        return deleteButton;
+        const b = document.createElement("button");
+        b.innerHTML = "x";
+        b.addEventListener("click", callback);
+        return b;
     };
 
-    // Create an observer to add remove buttons
-    new MutationObserver((mutationsList) => {
-        for (let mutation of mutationsList) {
-            if (mutation.addedNodes.length > 0) {
-                mutation.addedNodes[0].appendChild(
-                    button("x", function () {
-                        this.parentElement.remove()
-                    }));
-            }
-        }
-    }).observe(document.getElementById("countryList"),
-        {childList: true}
-    );
-
-    // observer.disconnect();
+    const listItem = (text) => {
+        const li = document.createElement("li");
+        li.innerHTML = text;
+        li.appendChild(button("x", function () {
+            this.parentElement.remove()
+        }));
+        return li;
+    };
 
     function add(element) {
         if (!element) {
             alert("Please, enter a country name.");
         } else {
-            document.getElementById("countryList")
-                .appendChild(document.createElement("LI"))
-                .appendChild(document.createTextNode(element));
+            document.getElementById("countryList").appendChild(listItem(element));
             document.getElementById("country").value = '';
         }
     }
