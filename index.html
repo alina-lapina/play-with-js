@@ -23,7 +23,7 @@
         console.log("handle", e.target.value);
         document.getElementById("countryList").childNodes
             .forEach(node => {
-                node.innerHTML.startsWith(e.target.value)
+                node.innerHTML.toLowerCase().startsWith(e.target.value.toLowerCase())
                     ? node.style.display = 'block'
                     :   node.style.display = 'none'
             })
