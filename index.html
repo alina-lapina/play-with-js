@@ -7,17 +7,20 @@
 </head>
 <body>
 <section>
+    <button onclick=populate() >Populate</button>
+    <button onclick=sessionStorage.clear() >Clear storage</button>
     <form action="javascript:add(country.value)">
         <input type="text" name="country" id="country" placeholder="Country">
-        <input type="submit" value="Update"/>
+        <input type="submit" value="Add"/>
     </form>
     <ul id="countryList">
-        <li>Norway</li>
-        <li>Denmark</li>
-        <li>Sweden</li>
     </ul>
 </section>
 <script>
+    const populate = () => {
+        const counties = ["Norway", "Denmark", "Sweden"];
+        counties.forEach(country => add(country));
+    };
 
     const button = (text, callback) => {
         const b = document.createElement("button");
@@ -30,7 +33,8 @@
         const li = document.createElement("li");
         li.innerHTML = text;
         li.appendChild(button("x", function () {
-            this.parentElement.remove()
+            //this.parentElement.remove()
+            store.delete(text);
         }));
         return li;
     };
@@ -39,10 +43,32 @@
         if (!element) {
             alert("Please, enter a country name.");
         } else {
-            document.getElementById("countryList").appendChild(listItem(element));
+            store.add(element);
             document.getElementById("country").value = '';
         }
     }
+
+    function update(nodeId = "countryList") {
+        console.log("update");
+        document.getElementById(nodeId).innerHTML = '';
+        Object.keys(sessionStorage).map(item => {
+            document.getElementById(nodeId).appendChild(listItem(item)) });
+    }
+
+    const store = {
+        add: (elem) => {
+                console.log("add to storage", elem);
+                sessionStorage[elem] = "country";
+                update();
+            },
+        delete: (elem) => {
+            console.log("remove from storage", elem);
+            sessionStorage.removeItem(elem);
+            update();
+        }
+    };
+
+    update();
 </script>
 </body>
 </html>
