@@ -43,7 +43,12 @@
 
     const listItem = (text) => {
         const li = document.createElement("li");
-        li.innerHTML = `${text} - ${api.population()}`;
+        let p = api.population(text);
+
+        window.setInterval(() => {
+            console.log("tick");
+            li.innerHTML = `${text} - ${p++}`;
+        }, 1000);
         li.appendChild(button("x", function () {
             //this.parentElement.remove()
             store.delete(text);
@@ -96,17 +101,13 @@
             };
             xhttp.open("GET", this.url, true);
             xhttp.send();*/
-            return 35604920;
+            return Math.floor(Math.random() * 2309840938);
         },
 
         rate: (country) => {
-            return 1;
+            return Math.floor(Math.random() * 10);
         }
     };
-
-    window.setInterval(() => {
-        console.log("tick");
-    }, 1000);
 
     update();
 </script>
