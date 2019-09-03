@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Interactive list</title>
+</head>
+<body>
+<script>
+    function add(element) {
+        if (!element) {
+            alert("Please, enter a country name.");
+        } else {
+            document.getElementById("countryList")
+                .appendChild(document.createElement("LI"))
+                .appendChild(document.createTextNode(element));
+            document.getElementById("country").value = '';
+        }
+    }
+</script>
+<section>
+    <form action="javascript:add(country.value)">
+        <input type="text" name="country" id="country" placeholder="Country">
+        <input type="submit" value="Update"/>
+    </form>
+    <ul id="countryList">
+        <li>Norway</li>
+        <li>Denmark</li>
+        <li>Sweden</li>
+    </ul>
+</section>
+</body>
+</html>
