@@ -8,12 +8,12 @@
 </head>
 <body>
 <section>
-    <button onclick=populate()>Populate</button>
-    <button onclick=sessionStorage.clear()>Clear storage</button>
+    <button onclick=populate() style="margin:3px">Populate</button>
+    <button onclick=sessionStorage.clear() style="margin:3px">Clear storage</button>
     <form action="javascript:add(country.value)">
-        <input type="text" name="country" id="country" placeholder="Country">
+        <input type="text" name="country" id="country" style="margin:3px" placeholder="Country">
         <input type="submit" value="Add"/><br>
-        <input type="search" name="search" id="search" placeholder="search...">
+        <input type="search" name="search" id="search" style="margin:3px" placeholder="Search...">
     </form>
     <ul id="countryList">
     </ul>
