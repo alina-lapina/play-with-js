@@ -48,6 +48,7 @@
     const utils = {
         button: (text, callback) => {
             const b = document.createElement("button");
+            b.setAttribute("style", "color:red; background:none; border:none; font-weight: 900;")
             b.innerHTML = text;
             b.addEventListener("click", callback);
             return b;
@@ -55,7 +56,7 @@
 
         p: ({name, population}) => {
             const p = document.createElement("span");
-            p.innerHTML = `${name} - ${population}`;
+            p.innerHTML = `${name} - ${population.toLocaleString()}`;
             p.setAttribute("id", name);
             return p;
         },
@@ -74,7 +75,7 @@
             console.log("Page updated");
             $.each(store.getAll(), (index, country) => {
                 let item = document.getElementById(country.name);
-                item ? item.innerHTML = `${country.name} - ${country.population}`
+                item ? item.innerHTML = `${country.name} - ${country.population.toLocaleString()}   `
                     : document.getElementById(nodeId).appendChild(utils.li(country))
             });
         }
